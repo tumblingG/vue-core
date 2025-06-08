@@ -156,6 +156,12 @@ export function createSlot(
     }
   }
 
+  const scopeIds: string[] = (fragment.scopeIds = [])
+  const parentScopeId = instance.parent && instance.parent.type.__scopeId
+  if (parentScopeId) scopeIds.push(parentScopeId)
+  const scopeId = instance.type.__scopeId
+  if (scopeId) scopeIds.push(`${scopeId}-s`)
+
   if (!isHydrating && _insertionParent) {
     insert(fragment, _insertionParent, _insertionAnchor)
   }

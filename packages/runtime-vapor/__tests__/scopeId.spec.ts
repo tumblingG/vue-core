@@ -200,7 +200,7 @@ describe('scopeId', () => {
   test.todo('should attach scopeId to suspense content', async () => {})
 
   // :slotted basic
-  test.todo('should work on slots', () => {
+  test('should work on slots', () => {
     const Child = defineVaporComponent({
       __scopeId: 'child',
       setup() {

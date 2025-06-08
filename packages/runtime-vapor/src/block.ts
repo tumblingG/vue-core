@@ -24,6 +24,7 @@ export class VaporFragment {
   anchor?: Node
   insert?: (parent: ParentNode, anchor: Node | null) => void
   remove?: (parent?: ParentNode) => void
+  scopeIds?: string[]
 
   constructor(nodes: Block) {
     this.nodes = nodes
@@ -133,6 +134,12 @@ export function insert(
       insert(block.nodes, parent, anchor)
     }
     if (block.anchor) insert(block.anchor, parent, anchor)
+
+    if (block.scopeIds) {
+      for (const scopeId of block.scopeIds) {
+        setScopeId(block, scopeId)
+      }
+    }
   }
 }
 
@@ -206,7 +213,6 @@ export function setScopeId(block: Block, scopeId: string): void {
 export function setComponentScopeId(instance: VaporComponentInstance): void {
   const parent = instance.parent
   if (!parent) return
-
   if (isArray(instance.block) && instance.block.length > 1) return
 
   const scopeId = parent.type.__scopeId
